@@ -11,6 +11,6 @@ module org.example.javafx_labs {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens javafx_labs to javafx.fxml;
-    exports javafx_labs;
+    opens org.example.javafx_labs to javafx.fxml;
+    exports org.example.javafx_labs;
 }
