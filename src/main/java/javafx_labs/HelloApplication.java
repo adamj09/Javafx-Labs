@@ -11,7 +11,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Button button = new Button();
-        Scene scene = new Scene(button, 320, 240);
+        Scene scene = new Scene(button, 800, 600);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
