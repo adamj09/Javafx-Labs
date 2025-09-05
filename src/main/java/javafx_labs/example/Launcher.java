@@ -1,4 +1,4 @@
-package javafx_labs;
+package javafx_labs.example;
 
 import javafx.application.Application;
 

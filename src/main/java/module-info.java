@@ -1,7 +1,9 @@
-module org.example.javafx_labs {
+module javafx_labs {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.graphics;
+    requires java.desktop;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -11,6 +13,6 @@ module org.example.javafx_labs {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens javafx_labs to javafx.fxml;
-    exports javafx_labs;
+    opens javafx_labs.example to javafx.fxml;
+    exports javafx_labs.example;
 }

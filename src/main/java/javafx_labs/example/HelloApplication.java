@@ -1,4 +1,4 @@
-package javafx_labs;
+package javafx_labs.example;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -6,6 +6,20 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+/**
+ * JavaFX start method always structured as follows:
+ * 
+ * Stage
+ * 
+ * Scene
+ * 
+ * Add pane to scene
+ * 
+ * Add scene to stage
+ * 
+ * show stage
+ */
 
 public class HelloApplication extends Application {
     @Override
