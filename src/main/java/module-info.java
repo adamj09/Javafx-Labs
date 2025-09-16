@@ -15,4 +15,10 @@ module javafx_labs {
 
     opens javafx_labs.example to javafx.fxml;
     exports javafx_labs.example;
+
+    opens javafx_labs.test to javafx.fxml;
+    exports javafx_labs.test;
+
+    opens javafx_labs.lab_03_01 to javafx.fxml;
+    exports javafx_labs.lab_03_01;
 }
