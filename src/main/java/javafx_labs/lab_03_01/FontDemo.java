@@ -13,9 +13,11 @@ import java.io.IOException;
 
 /**
  * @author Adam Johnston 2332003
- * A class serving as a basic demonstration of drawing text and shapes using JavaFX.
- * This code was copied from 'Introduction to Java programming' by Liang, and was
- * slightly modified for learning purposes.
+ *         A class serving as a basic demonstration of drawing text and shapes
+ *         using JavaFX.
+ *         This code was copied from 'Introduction to Java programming' by
+ *         Liang, and was
+ *         slightly modified for learning purposes.
  */
 public class FontDemo extends Application {
     @Override
