@@ -21,4 +21,7 @@ module javafx_labs {
 
     opens javafx_labs.lab_03_01 to javafx.fxml;
     exports javafx_labs.lab_03_01;
+
+    opens javafx_labs.lab_03_02 to javafx.fxml;
+    exports javafx_labs.lab_03_02;
 }
