@@ -14,10 +14,9 @@ import javafx.stage.Stage;
  *         simply addition program.
  */
 public class AdditionDemo extends Application {
-    //TODO: make this not static
-    static Button addButton = new Button("Add");
+    private Button addButton = new Button("Add");
 
-    static TextField num1Field = new TextField(),
+    private TextField num1Field = new TextField(),
             num2Field = new TextField(),
             resultField = new TextField();
 
@@ -25,10 +24,15 @@ public class AdditionDemo extends Application {
     public void start(Stage primaryStage) {
         resultField.setEditable(false);
 
-        // Handle button click event
-        EventHandlerLambda.setupEventHandler();
-        // EventHandlerAnonymousClass.setupEventHandler();
-        // EventHandlerInnerClass.setupEventHandler();
+        // Init event handler classes.
+        EventHandlerLambda lambda = new EventHandlerLambda();
+        EventHandlerInnerClass inner = new EventHandlerInnerClass();
+        EventHandlerAnonymousClass anonymous = new EventHandlerAnonymousClass();
+
+        // Handle button click event (3 different ways).
+        //lambda.setupEventHandler(addButton, num1Field, num2Field, resultField);
+        //inner.setupEventHandler(addButton, num1Field, num2Field, resultField);
+        anonymous.setupEventHandler(addButton, num1Field, num2Field, resultField);
 
         primaryStage.setTitle("Event Handler Demo");
         primaryStage.setScene(setupScene());

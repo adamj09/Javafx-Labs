@@ -1,27 +1,25 @@
 package javafx_labs.lab_04_01.exercise_1;
 
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 /**
  * @author Adam Johnston 2332003
  * 
- * Class to demonstrate event handling using a lambda function.
+ *         Class to demonstrate event handling using a lambda function.
  */
 public class EventHandlerLambda {
-    private static void addNumbers() {
-        try {
-            Double num1 = Double.parseDouble(AdditionDemo.num1Field.getText()),
-                    num2 = Double.parseDouble(AdditionDemo.num2Field.getText());
+    public void setupEventHandler(Button button, TextField num1Field, TextField num2Field, TextField resultField) {
+        button.addEventHandler(ActionEvent.ACTION, _ -> {
+            try {
+                Double num1 = Double.parseDouble(num1Field.getText()),
+                        num2 = Double.parseDouble(num2Field.getText());
 
-            AdditionDemo.resultField.setText((num1 + num2) + "");
-        } catch (Exception ex) {
-            AdditionDemo.resultField.setText("Invalid input!");
-        }
-    }
-
-    public static void setupEventHandler() {
-        //AdditionDemo demo = new AdditionDemo();
-        AdditionDemo.addButton.addEventHandler(ActionEvent.ACTION, _->addNumbers());
+                resultField.setText((num1 + num2) + "");
+            } catch (Exception ex) { // Catch any exception thrown when parsing data.
+                resultField.setText("Invalid input!");
+            }
+        });
     }
 }

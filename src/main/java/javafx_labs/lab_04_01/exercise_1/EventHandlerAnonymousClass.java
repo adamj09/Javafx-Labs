@@ -1,29 +1,34 @@
 package javafx_labs.lab_04_01.exercise_1;
 
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
+/**
+ * @author Adam Johnston 2332003
+ * 
+ *         Class to demonstrate event handling using an anonymous inner class.
+ */
 public class EventHandlerAnonymousClass {
     interface Add {
-        void addNumbers();
+        void addNumbers(TextField num1Field, TextField num2Field, TextField resultField);
     }
 
-    public static void setupEventHandler() {
+    public void setupEventHandler(Button button, TextField num1Field, TextField num2Field, TextField resultField) {
         Add add = new Add() {
             @Override
-            public void addNumbers() {
+            public void addNumbers(TextField num1Field, TextField num2Field, TextField resultField) {
                 try {
-                    Double num1 = Double.parseDouble(AdditionDemo.num1Field.getText()),
-                            num2 = Double.parseDouble(AdditionDemo.num2Field.getText());
+                    Double num1 = Double.parseDouble(num1Field.getText()),
+                            num2 = Double.parseDouble(num2Field.getText());
 
-                    AdditionDemo.resultField.setText((num1 + num2) + "");
-                } catch (Exception ex) {
-                    AdditionDemo.resultField.setText("Invalid input!");
+                    resultField.setText((num1 + num2) + "");
+                } catch (Exception ex) { // Catch any exception thrown when parsing data.
+                    resultField.setText("Invalid input!");
                 }
             }
         };
 
-        AdditionDemo demo = new AdditionDemo();
-        demo.addButton.addEventHandler(ActionEvent.ACTION, _->add.addNumbers());
+        button.addEventHandler(ActionEvent.ACTION, _->add.addNumbers(num1Field, num2Field, resultField));
     }
 }
