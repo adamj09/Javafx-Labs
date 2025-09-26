@@ -8,22 +8,31 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    static Button addButton = new Button("Add");
+
+    static TextField num1Field = new TextField(),
+            num2Field = new TextField(),
+            resultField = new TextField();
+
     @Override
     public void start(Stage primaryStage) {
+        resultField.setEditable(false);
+
+        //EventHandlerLambda.setupEventHandler();
+        //EventHandlerAnonymousClass.setupEventHandler();
+        //EventHandlerInnerClass.setupEventHandler();
+
+        primaryStage.setTitle("Event Handler Demo");
+        primaryStage.setScene(setupScene());
+        primaryStage.show();
+    }
+
+    private Scene setupScene() {
         Label num1Label = new Label("Number 1: "),
                 num2Label = new Label("Number 2: "),
                 resultLabel = new Label("Result: ");
 
-        TextField num1Field = new TextField(),
-                num2Field = new TextField(),
-                resultField = new TextField();
-
-        resultField.setEditable(false);
-
-        Button addButton = new Button("Add");
-
         GridPane gridPane = new GridPane();
-
         gridPane.add(num1Label, 0, 0);
         gridPane.add(num1Field, 1, 0);
 
@@ -37,14 +46,9 @@ public class Main extends Application {
 
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-
         gridPane.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(gridPane, 300, 300);
-
-        primaryStage.setTitle("Event Handler Demo");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return new Scene(gridPane, 300, 300);
     }
 
     public static void main(String[] args) {
