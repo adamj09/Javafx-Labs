@@ -7,7 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+/**
+ * @author Adam Johnston 2332003
+ * 
+ *         Class used to demonstrate different methods of event handling via a
+ *         simply addition program.
+ */
+public class AdditionDemo extends Application {
+    //TODO: make this not static
     static Button addButton = new Button("Add");
 
     static TextField num1Field = new TextField(),
@@ -18,15 +25,20 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         resultField.setEditable(false);
 
-        //EventHandlerLambda.setupEventHandler();
-        //EventHandlerAnonymousClass.setupEventHandler();
-        //EventHandlerInnerClass.setupEventHandler();
+        // Handle button click event
+        EventHandlerLambda.setupEventHandler();
+        // EventHandlerAnonymousClass.setupEventHandler();
+        // EventHandlerInnerClass.setupEventHandler();
 
         primaryStage.setTitle("Event Handler Demo");
         primaryStage.setScene(setupScene());
         primaryStage.show();
     }
 
+    /**
+     * Sets up the scene with all labels, fields, and the button.
+     * @return The scene that was set up.
+     */
     private Scene setupScene() {
         Label num1Label = new Label("Number 1: "),
                 num2Label = new Label("Number 2: "),
