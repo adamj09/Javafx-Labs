@@ -30,6 +30,8 @@ public class CalculatorHandler {
             num2 = Double.parseDouble(num2Field.getText());
         } catch (Exception ex) { // Catch any exception thrown when parsing data.
             resultField.setText("Invalid input!");
+            num1 = null;
+            num2 = null;
         }
     }
 
@@ -43,7 +45,8 @@ public class CalculatorHandler {
      */
     public void add(TextField num1Field, TextField num2Field, TextField resultField) {
         parseDoubles(num1Field, num2Field, resultField);
-        resultField.setText((num1 + num2) + "");
+        if (num1 != null && num2 != null)
+            resultField.setText((num1 + num2) + "");
     }
 
     /**
@@ -56,7 +59,8 @@ public class CalculatorHandler {
      */
     public void subtract(TextField num1Field, TextField num2Field, TextField resultField) {
         parseDoubles(num1Field, num2Field, resultField);
-        resultField.setText((num1 - num2) + "");
+        if (num1 != null && num2 != null)
+            resultField.setText((num1 - num2) + "");
     }
 
     /**
@@ -69,7 +73,8 @@ public class CalculatorHandler {
      */
     public void multiply(TextField num1Field, TextField num2Field, TextField resultField) {
         parseDoubles(num1Field, num2Field, resultField);
-        resultField.setText((num1 * num2) + "");
+        if (num1 != null && num2 != null)
+            resultField.setText((num1 * num2) + "");
     }
 
     /**
@@ -82,11 +87,14 @@ public class CalculatorHandler {
      */
     public void divide(TextField num1Field, TextField num2Field, TextField resultField) {
         parseDoubles(num1Field, num2Field, resultField);
-        if (num2 == 0) { // Check for division by 0.
-            resultField.setText("Cannot divide by 0!");
-            return;
+        if (num1 != null && num2 != null) {
+            if (num2 == 0) { // Check for division by 0.
+                resultField.setText("Cannot divide by 0!");
+                return;
+            }
+
+            resultField.setText((num1 / num2) + "");
         }
-        resultField.setText((num1 / num2) + "");
     }
 
     /**
@@ -99,6 +107,7 @@ public class CalculatorHandler {
      */
     public void power(TextField num1Field, TextField num2Field, TextField resultField) {
         parseDoubles(num1Field, num2Field, resultField);
-        resultField.setText(Math.pow(num1, num2) + "");
+        if (num1 != null && num2 != null)
+            resultField.setText(Math.pow(num1, num2) + "");
     }
 }
