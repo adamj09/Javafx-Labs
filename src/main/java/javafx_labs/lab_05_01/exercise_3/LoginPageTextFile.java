@@ -27,7 +27,7 @@ public class LoginPageTextFile extends Application {
     private Button loginButton = new Button("Login");
 
     private ArrayList<String> usernames = new ArrayList<>(),
-            passwords = new ArrayList<>();
+            passwords = new ArrayList<>(); // A hashmap would be better, rather than two ArrayLists
 
     @Override
     public void start(Stage primaryStage) {
