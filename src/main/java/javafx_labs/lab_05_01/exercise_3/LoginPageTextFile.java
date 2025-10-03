@@ -2,10 +2,9 @@ package javafx_labs.lab_05_01.exercise_3;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
@@ -20,7 +19,7 @@ import javafx.stage.Stage;
 /**
  * @author Adam Johnston 2332003
  * 
- * Demo login page that loads required login info from a txt file.
+ *         Demo login page that loads required login info from a txt file.
  */
 public class LoginPageTextFile extends Application {
     private Label loginInfoLabel = new Label(),
@@ -31,8 +30,7 @@ public class LoginPageTextFile extends Application {
 
     private Button loginButton = new Button("Login");
 
-    private ArrayList<String> usernames = new ArrayList<>(),
-            passwords = new ArrayList<>(); // A hashmap would be better, rather than two ArrayLists
+    private HashMap<String, String> loginInfo = new HashMap<>();
 
     @Override
     public void start(Stage primaryStage) {
@@ -43,62 +41,62 @@ public class LoginPageTextFile extends Application {
         primaryStage.show();
 
         loadLoginInfo();
-        // Login info could not be found, abort.
-        if (usernames.size() == 0 || passwords.size() == 0) {
+        if (loginInfo.size() == 0) {
+            // Login info could not be found: abort.
             System.err.println("Login info could not be found!");
             primaryStage.close();
         }
     }
 
+    /**
+     * Compares login info from the txt file with login info that was entered.
+     */
     private void loginHandler() {
         loginInfoLabel
                 .setText("Username entered: " + userField.getText() + "\nPassword entered: " + passField.getText());
 
-        boolean userValid = false;
-        // Check if username exists and which username was given.
-        int userIndex = 0;
-        for (int i = 0; i < usernames.size(); i++) {
-            if (usernames.get(i).equals(userField.getText())) {
-                userValid = true;
-                userIndex = i;
-                break;
-            }
-        }
-
-        if (userValid) { // If the username does exist, check whether its associated password is
-                         // correctly given.
-            if (passwords.get(userIndex).equals(passField.getText())) {
+        // If the username does exist, check whether its associated password is
+        // correctly given.
+        if (loginInfo.containsKey(userField.getText())) {
+            if (loginInfo.get(userField.getText()).equals(passField.getText())) {
                 verificationLabel.setText("User is verified!");
-            } else if (!passwords.get(userIndex).equals(passField.getText())) {
+            } else {
                 verificationLabel.setText("Incorrect password!");
             }
-        } else { // If the username does exist, state so.
-            verificationLabel.setText("User does not exist!");
+            return;
         }
+        // If the username doesn't exist, state so.
+        verificationLabel.setText("User does not exist!");
     }
 
+    /**
+     * Loads usernames and associated passwords into a hashmap from txt file.
+     */
     private void loadLoginInfo() {
         File file = new File("src/main/resources/users.txt");
         try {
             Scanner scanner = new Scanner(file);
             // Clear arrays so that calling this method multiple times doesn't duplicate
             // info.
-            usernames.clear();
-            passwords.clear();
+            loginInfo.clear();
 
             while (scanner.hasNextLine()) {
-                usernames.add(scanner.next());
-                passwords.add(scanner.next());
+                loginInfo.put(scanner.next(), scanner.next());
             }
+            scanner.close();
         } catch (FileNotFoundException ex) {
             System.err.println(ex.getMessage());
         } catch (NoSuchElementException ex) {
             // Clear arrays since the info wasn't properly formatted.
-            usernames.clear();
-            passwords.clear();
+            loginInfo.clear();
         }
     }
 
+    /**
+     * Sets up a Scene.
+     * 
+     * @return the Scene that was set up.
+     */
     private Scene setupScene() {
         Label prompt = new Label("Enter your username and password:"),
                 userLabel = new Label("Username:"),
