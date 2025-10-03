@@ -17,6 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * @author Adam Johnston 2332003
+ * 
+ * Demo login page that loads required login info from a txt file.
+ */
 public class LoginPageTextFile extends Application {
     private Label loginInfoLabel = new Label(),
             verificationLabel = new Label();

@@ -14,6 +14,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * @author Adam Johnston 2332003
+ * 
+ *         Example use of RadioButtons.
+ */
 public class TrafficLight extends Application {
     private Circle greenLight, redLight, yellowLight;
     private RadioButton greenButton, yellowButton, redButton;
@@ -24,38 +29,44 @@ public class TrafficLight extends Application {
         primaryStage.setTitle("Traffic Light");
         primaryStage.show();
 
-        greenButton.addEventHandler(ActionEvent.ACTION, _->{
+        // Set up handlers for each RadioButton
+        greenButton.addEventHandler(ActionEvent.ACTION, _ -> {
             greenLight.setFill(Color.rgb(132, 234, 37, 1));
             redLight.setFill(Color.WHITE);
             yellowLight.setFill(Color.WHITE);
         });
 
-        yellowButton.addEventHandler(ActionEvent.ACTION, _->{
+        yellowButton.addEventHandler(ActionEvent.ACTION, _ -> {
             yellowLight.setFill(Color.rgb(237, 206, 26, 1));
             redLight.setFill(Color.WHITE);
             greenLight.setFill(Color.WHITE);
         });
 
-        redButton.addEventHandler(ActionEvent.ACTION, _->{
+        redButton.addEventHandler(ActionEvent.ACTION, _ -> {
             redLight.setFill(Color.rgb(234, 37, 37, 1));
             greenLight.setFill(Color.WHITE);
             yellowLight.setFill(Color.WHITE);
         });
     }
 
+    /**
+     * Sets up a Scene.
+     * 
+     * @return the Scene that was set up.
+     */
     private Scene setupScene() {
+        // Light container
         Rectangle rectangle = new Rectangle((1.0 / 3) * 200, 200, Color.WHITE);
         rectangle.setStroke(Color.BLACK);
 
         double rectCenterX = rectangle.getX() + rectangle.getWidth() / 2;
         double lightRadius = (rectangle.getWidth() / 2) - 5;
 
+        // Lights
         yellowLight = new Circle(rectCenterX, (rectangle.getY() + rectangle.getHeight() / 2), lightRadius, Color.WHITE);
         yellowLight.setStroke(Color.BLACK);
-
         redLight = new Circle(rectCenterX, yellowLight.getCenterY() - lightRadius * 2 - 5, lightRadius, Color.WHITE);
         redLight.setStroke(Color.BLACK);
-
         greenLight = new Circle(rectCenterX, yellowLight.getCenterY() + lightRadius * 2 + 5, lightRadius, Color.WHITE);
         greenLight.setStroke(Color.BLACK);
 

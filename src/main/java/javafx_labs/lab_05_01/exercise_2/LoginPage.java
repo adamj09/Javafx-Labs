@@ -11,6 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * @author Adam Johnston 2332003
+ * 
+ * Demo login page with hard-coded values for required username and password.
+ */
 public class LoginPage extends Application {
     private Label loginInfoLabel = new Label(),
             verificationLabel = new Label();
@@ -26,9 +31,10 @@ public class LoginPage extends Application {
     @Override
     public void start(Stage primaryStage) {
         loginButton.addEventHandler(ActionEvent.ACTION, _ -> {
-            loginInfoLabel
-                    .setText("Username entered: " + userField.getText() + "\nPassword entered: " + passField.getText());
+            // Display the login info that was entered.
+            loginInfoLabel.setText("Username entered: " + userField.getText() + "\nPassword entered: " + passField.getText());
                     
+            // Compare login info that was entered with the hard-coded required values and display result.
             if (userField.getText().equals(username) && passField.getText().equals(password)) {
                 verificationLabel.setText("User is verified!");
             } else if (!passField.getText().equals(password) && userField.getText().equals(username)) {
@@ -43,6 +49,11 @@ public class LoginPage extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Sets up a Scene.
+     * 
+     * @return the Scene that was set up.
+     */
     private Scene setupScene() {
         Label prompt = new Label("Enter your username and password:"),
                 userLabel = new Label("Username:"),
