@@ -76,7 +76,7 @@ public class LoginPageTextFile extends Application {
         File file = new File("src/main/resources/users.txt");
         try {
             Scanner scanner = new Scanner(file);
-            // Clear arrays so that calling this method multiple times doesn't duplicate
+            // Clear hashmap so that calling this method multiple times doesn't duplicate
             // info.
             loginInfo.clear();
 
@@ -87,7 +87,7 @@ public class LoginPageTextFile extends Application {
         } catch (FileNotFoundException ex) {
             System.err.println(ex.getMessage());
         } catch (NoSuchElementException ex) {
-            // Clear arrays since the info wasn't properly formatted.
+            // Clear hashmap since the info wasn't properly formatted.
             loginInfo.clear();
         }
     }
