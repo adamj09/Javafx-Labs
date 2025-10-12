@@ -4,102 +4,104 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class CalendarDisplay extends Application {
-    private GregorianCalendar displayDate;
-    private GridPane daysPane = new GridPane();
-    private Label top = new Label();
+        private GregorianCalendar displayDate;
+        private GridPane daysPane = new GridPane();
+        private Label top = new Label();
 
-    @Override
-    public void start(Stage primaryStage) {
-        displayDate = new GregorianCalendar();
+        @Override
+        public void start(Stage primaryStage) {
+                displayDate = new GregorianCalendar();
 
-        // Add days of the week above days of the month.
-        daysPane.addRow(0, new Label("Sunday"), new Label("Monday"), new Label("Tuesday"), new Label("Wednesday"),
-                new Label("Thursday"), new Label("Friday"), new Label("Saturday"));
+                // Alignment
+                daysPane.setAlignment(Pos.CENTER);
+                daysPane.setHgap(10);
+                daysPane.setVgap(10);
 
-        // Alignment
-        daysPane.setAlignment(Pos.CENTER);
-        daysPane.setHgap(10);
-        daysPane.setVgap(10);
+                Button previousButton = new Button("Previous"), nextButton = new Button("Next");
 
-        BorderPane masterPane = new BorderPane(daysPane);
-        masterPane.setTop(top);
-        BorderPane.setAlignment(masterPane.getTop(), Pos.CENTER);
-        masterPane.setPadding(new Insets(10, 10, 10, 10));
+                previousButton.addEventHandler(ActionEvent.ACTION, _ -> {
+                        displayDate.set(GregorianCalendar.MONTH, displayDate.get(GregorianCalendar.MONTH) - 1);
+                        drawCalendar();
+                });
 
-        Scene scene = new Scene(masterPane, 500, 300);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Calendar Display");
-        primaryStage.show();
+                nextButton.addEventHandler(ActionEvent.ACTION, _ -> {
+                        displayDate.set(GregorianCalendar.MONTH, displayDate.get(GregorianCalendar.MONTH) + 1);
+                        drawCalendar();
+                });
 
-        drawCalendar();
-    }
+                HBox buttonBox = new HBox(previousButton, nextButton);
+                buttonBox.setAlignment(Pos.CENTER);
+                buttonBox.setSpacing(10);
 
-    private void drawCalendar() {
-        // Set title (month, year).
-        top.setText(displayDate.getDisplayName(GregorianCalendar.MONTH, GregorianCalendar.LONG, Locale.getDefault())
-                + ", " + displayDate.get(GregorianCalendar.YEAR));
+                BorderPane masterPane = new BorderPane(daysPane);
+                masterPane.setTop(top);
+                masterPane.setBottom(buttonBox);
 
-        // Fill in days for current month.
-        for (int day = 1, row = 1; day <= displayDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); day++) {
-            GregorianCalendar date = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
-                    displayDate.get(GregorianCalendar.MONTH), day);
+                BorderPane.setAlignment(masterPane.getTop(), Pos.CENTER);
 
-            daysPane.add(new Label(date.get(GregorianCalendar.DAY_OF_MONTH) + ""),
-                    date.get(GregorianCalendar.DAY_OF_WEEK) - 1,
-                    date.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY ? row++ : row);
+                masterPane.setPadding(new Insets(10, 10, 10, 10));
+
+                Scene scene = new Scene(masterPane, 500, 300);
+                primaryStage.setScene(scene);
+                primaryStage.setTitle("Calendar Display");
+                primaryStage.show();
+
+                drawCalendar();
         }
 
-        // Fill in days for previous month.
-        GregorianCalendar previousMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
-                displayDate.get(GregorianCalendar.MONTH) - 1, 1);
-        previousMonth.set(GregorianCalendar.DAY_OF_MONTH, previousMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - (new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR), displayDate.get(GregorianCalendar.MONTH), 1)).get(GregorianCalendar.DAY_OF_WEEK) + 2);
+        private void drawCalendar() {
+                // Clear the gridpane to make room for displaying the month.
+                daysPane.getChildren().clear();
 
-        for (int day = previousMonth.get(GregorianCalendar.DAY_OF_MONTH); day <= previousMonth
-                .getActualMaximum(GregorianCalendar.DAY_OF_MONTH); day++) {
+                // Set title (month, year).
+                top.setText(displayDate.getDisplayName(GregorianCalendar.MONTH, GregorianCalendar.LONG,
+                                Locale.getDefault())
+                                + ", " + displayDate.get(GregorianCalendar.YEAR));
 
-            GregorianCalendar date = new GregorianCalendar(previousMonth.get(GregorianCalendar.YEAR),
-                    previousMonth.get(GregorianCalendar.MONTH), day);
+                daysPane.addRow(0, new Label("Sunday"), new Label("Monday"), new Label("Tuesday"),
+                                new Label("Wednesday"),
+                                new Label("Thursday"), new Label("Friday"), new Label("Saturday"));
 
-            // Label for the displaying the day of the month.
-            Label label = new Label(date.get(GregorianCalendar.DAY_OF_MONTH) + "");
-            label.setStyle("-fx-text-fill: grey");
-            label.setAlignment(Pos.CENTER);
+                // Fill in days for current month.
+                int row = 1;
+                for (int day = 1; day <= displayDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); day++) {
+                        GregorianCalendar date = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
+                                        displayDate.get(GregorianCalendar.MONTH), day);
 
-            daysPane.add(label, date.get(GregorianCalendar.DAY_OF_WEEK) - 1, 1);
+                        daysPane.add(new Label(date.get(GregorianCalendar.DAY_OF_MONTH) + ""),
+                                        date.get(GregorianCalendar.DAY_OF_WEEK) - 1,
+                                        date.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY ? row++ : row);
+                }
+
+                GregorianCalendar firstDayOfDisplayMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR), displayDate.get(GregorianCalendar.MONTH), 1),
+                                lastDayOfDisplayMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR), displayDate.get(GregorianCalendar.MONTH), displayDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH));
+                
+                GregorianCalendar previousMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR), displayDate.get(GregorianCalendar.MONTH) - 1, 1);
+                previousMonth.set(GregorianCalendar.DAY_OF_MONTH, previousMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - firstDayOfDisplayMonth.get(GregorianCalendar.DAY_OF_WEEK) + 1);
+
+                for(int i = 1; i < firstDayOfDisplayMonth.get(GregorianCalendar.DAY_OF_WEEK); i++) {
+                        daysPane.add(new Label((previousMonth.get(GregorianCalendar.DAY_OF_MONTH) + i) + ""), i - 1, 1);
+                }
+                
+                // Day 1 is always the first day of the month; no need for calendar object.
+                for(int day = 1, i = lastDayOfDisplayMonth.get(GregorianCalendar.DAY_OF_WEEK); i < GregorianCalendar.SATURDAY; i++) {
+                        daysPane.add(new Label(day++ + ""), i, row);
+                }
         }
 
-        // Fill in days for next month.
-        GregorianCalendar nextMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
-                displayDate.get(GregorianCalendar.MONTH) + 1, 1);
-        nextMonth.set(GregorianCalendar.DAY_OF_MONTH, 1);
-
-        for (int day = nextMonth.get(GregorianCalendar.DAY_OF_MONTH);; day++) {
-            GregorianCalendar date = new GregorianCalendar(nextMonth.get(GregorianCalendar.YEAR),
-                    nextMonth.get(GregorianCalendar.MONTH), day);
-
-            // Label for the displaying the day of the month.
-            Label label = new Label(date.get(GregorianCalendar.DAY_OF_MONTH) + "");
-            label.setStyle("-fx-text-fill: grey");
-            label.setAlignment(Pos.CENTER);
-
-            daysPane.add(label, date.get(GregorianCalendar.DAY_OF_WEEK) - 1, 5);
-
-            if (date.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY) {
-                break;
-            }
+        public static void main(String[] args) {
+                launch(args);
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
