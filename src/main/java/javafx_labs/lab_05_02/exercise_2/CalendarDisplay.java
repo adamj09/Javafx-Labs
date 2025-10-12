@@ -17,6 +17,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * @author Adam Johnston 2332003
+ * 
+ *         Class used to display a calendar showing the current month, with
+ *         options to display the previous and next months infinitely backwards
+ *         and forwards in time resptively.
+ */
 public class CalendarDisplay extends Application {
     private GregorianCalendar displayDate;
     private GridPane daysPane = new GridPane();
@@ -24,25 +31,26 @@ public class CalendarDisplay extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Initialize the date to today.
         displayDate = new GregorianCalendar();
 
-        // Alignment
+        // Alig calendar to center of scene.
         daysPane.setAlignment(Pos.CENTER);
         daysPane.setHgap(10);
         daysPane.setVgap(10);
 
+        // Set up buttons to show previous and next months.
         Button previousButton = new Button("Prior"), nextButton = new Button("Next");
-
         previousButton.addEventHandler(ActionEvent.ACTION, _ -> {
             displayDate.set(GregorianCalendar.MONTH, displayDate.get(GregorianCalendar.MONTH) - 1);
             drawCalendar();
         });
-
         nextButton.addEventHandler(ActionEvent.ACTION, _ -> {
             displayDate.set(GregorianCalendar.MONTH, displayDate.get(GregorianCalendar.MONTH) + 1);
             drawCalendar();
         });
 
+        // Button tray
         HBox buttonBox = new HBox(previousButton, nextButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setSpacing(10);
@@ -63,6 +71,9 @@ public class CalendarDisplay extends Application {
         drawCalendar();
     }
 
+    /**
+     * Draws the days of the month into a Gridpane.
+     */
     private void drawCalendar() {
         // Clear the gridpane to make room for displaying the month.
         daysPane.getChildren().clear();
@@ -79,24 +90,31 @@ public class CalendarDisplay extends Application {
         // Fill in days for current month.
         int row = 1;
         for (int day = 1; day <= displayDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); day++) {
+            // The current date to draw.
             GregorianCalendar date = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
                     displayDate.get(GregorianCalendar.MONTH), day);
 
             Label dayLabel = new Label(date.get(GregorianCalendar.DAY_OF_MONTH) + "");
 
+            // Add and center day to GridPane and.
             daysPane.add(dayLabel, date.get(GregorianCalendar.DAY_OF_WEEK) - 1,
                     date.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY ? row++ : row);
             GridPane.setHalignment(dayLabel, HPos.CENTER);
         }
 
+        // The first day of the currently displayed month.
         GregorianCalendar firstDayOfDisplayMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
-                        displayDate.get(GregorianCalendar.MONTH), 1),
+                displayDate.get(GregorianCalendar.MONTH), 1),
+
+                // The last day of the currently displayed month.
                 lastDayOfDisplayMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
                         displayDate.get(GregorianCalendar.MONTH),
                         displayDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH));
 
+        // The month prior to the currently displayed month
         GregorianCalendar previousMonth = new GregorianCalendar(displayDate.get(GregorianCalendar.YEAR),
                 displayDate.get(GregorianCalendar.MONTH) - 1, 1);
+        // The last Sunday of the prior month.
         previousMonth.set(GregorianCalendar.DAY_OF_MONTH, previousMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
                 - firstDayOfDisplayMonth.get(GregorianCalendar.DAY_OF_WEEK) + 1);
 
