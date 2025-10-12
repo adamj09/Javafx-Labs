@@ -31,7 +31,7 @@ public class CalendarDisplay extends Application {
         daysPane.setHgap(10);
         daysPane.setVgap(10);
 
-        Button previousButton = new Button("Previous"), nextButton = new Button("Next");
+        Button previousButton = new Button("Prior"), nextButton = new Button("Next");
 
         previousButton.addEventHandler(ActionEvent.ACTION, _ -> {
             displayDate.set(GregorianCalendar.MONTH, displayDate.get(GregorianCalendar.MONTH) - 1);

@@ -8,9 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
@@ -101,10 +101,19 @@ public class GeometricFigures extends Application {
         StackPane shapesPane = new StackPane(circle, square, ellipse);
         shapesPane.setPadding(new Insets(10, 10, 10, 10));
 
-        VBox masterBox = new VBox(shapesPane, buttonBox);
-        masterBox.setSpacing(20);
+        // Bind shape size to shapesPane size.
+        circle.radiusProperty().bind(shapesPane.heightProperty().divide(3));
+        square.widthProperty().bind(shapesPane.widthProperty().divide(3));
+        square.heightProperty().bind(square.widthProperty());
+        ellipse.radiusXProperty().bind(shapesPane.widthProperty().divide(3));
+        ellipse.radiusYProperty().bind(shapesPane.heightProperty().divide(3));
 
-        return new Scene(masterBox, 450, 300);
+        BorderPane masterPane = new BorderPane();
+        masterPane.setCenter(shapesPane);
+        masterPane.setBottom(buttonBox);
+        masterPane.setPadding(new Insets(10, 10, 10, 10));
+
+        return new Scene(masterPane, 450, 300);
     }
 
     public static void main(String[] args) {
