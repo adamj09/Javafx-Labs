@@ -12,6 +12,7 @@ module javafx_labs {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires javafx.base;
 
     opens javafx_labs.example to javafx.fxml;
 
@@ -64,4 +65,8 @@ module javafx_labs {
     opens javafx_labs.lab_05_02.exercise_2 to javafx.fxml;
 
     exports javafx_labs.lab_05_02.exercise_2;
+
+    opens javafx_labs.lab_06_01.exercise_2 to javafx.fxml;
+
+    exports javafx_labs.lab_06_01.exercise_2;
 }
