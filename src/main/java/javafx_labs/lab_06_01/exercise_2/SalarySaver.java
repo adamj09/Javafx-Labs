@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javafx.application.Application;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +25,7 @@ import javafx.stage.Stage;
 
 public class SalarySaver extends Application {
     private HashMap<Integer, Double> salaries = new HashMap<>();
-    private static SimpleIntegerProperty currentID = new SimpleIntegerProperty(0);
+    private static Integer currentID = 0;
     private static Double total = 0.0;
 
     /**
@@ -92,11 +91,11 @@ public class SalarySaver extends Application {
         }
 
         // Update list of salaries
-        salaries.put(currentID.get(), newSalary);
-        salaryLabels.add(new Label(currentID.get() + "\t$" + String.format("%.2f", salaries.get(currentID.get()))));
+        salaries.put(currentID, newSalary);
+        salaryLabels.add(new Label(currentID + "\t$" + String.format("%.2f", salaries.get(currentID))));
 
         // Update ID.
-        currentID.set(currentID.get() + 1);
+        currentID++;
 
         // Update error label.
         if (errorLabel.getText() != null) {
@@ -106,10 +105,10 @@ public class SalarySaver extends Application {
 
     private void updateSalaryMetadata() {
         // Update salary count.
-        salaryCountLabel.setText("Salary count: " + (currentID.get()) + "");
+        salaryCountLabel.setText("Salary count: " + (currentID) + "");
 
         // Update total.
-        for (int i = currentID.get() - 1; i < salaries.size(); i++) {
+        for (int i = currentID - 1; i < salaries.size(); i++) {
             total += salaries.get(i);
         }
         totalLabel.setText("Total: " + String.format("%.2f", total));
@@ -128,8 +127,8 @@ public class SalarySaver extends Application {
         try (DataInputStream inputStream = new DataInputStream(new FileInputStream(file))) {
             while (true) {
                 salaries.put(inputStream.readInt(), inputStream.readDouble());
-                salaryLabels.add(new Label(currentID.get() + "\t$" + String.format("%.2f", salaries.get(currentID.get()))));
-                currentID.set(currentID.get() + 1);
+                salaryLabels.add(new Label(currentID + "\t$" + String.format("%.2f", salaries.get(currentID))));
+                currentID++;
             }
         } catch (EOFException ex) { // End of file reached: return.
             return;
