@@ -28,7 +28,9 @@ public class SalaryManager {
 
     /**
      * ID of the last salary added to the unsaved salaries HashMap. Useful for
-     * displaying unsaved salaries.
+     * displaying unsaved salaries. Perhaps it's better to use a pseudo-random ID
+     * system, rather than an ordered, incrementing one, but that seems to be
+     * outside the scope of this assignment.
      */
     private Integer latestID = 0;
 
