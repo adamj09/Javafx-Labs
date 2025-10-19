@@ -93,7 +93,7 @@ public class App extends Application {
         salaryListView.setItems(salaryLabels);
         salaryListView.setPrefWidth(300);
 
-        FlowPane modifyPane = new FlowPane(saveButton, clearAllButton, clearUnsavedButton);
+        FlowPane modifyPane = new FlowPane(saveButton, clearUnsavedButton, clearAllButton);
         modifyPane.setPadding(new Insets(10, 10, 10, 10));
         modifyPane.setHgap(10);
 
