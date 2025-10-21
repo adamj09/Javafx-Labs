@@ -149,7 +149,6 @@ public class SalaryManager {
         } catch (IOException ex) { // Failed to load salaries, continue without saved data.
             savedSalaries.clear();
             return;
-        } finally {
         }
     }
 
