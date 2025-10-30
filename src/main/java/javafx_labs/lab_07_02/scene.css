@@ -1,0 +1,27 @@
+.moon {
+    -fx-fill: rgb(240, 239, 233);
+}
+
+.pumpkin {
+    -fx-fill: rgb(235, 147, 15);
+}
+
+.eyes {
+    -fx-fill: black;
+}
+
+.mouth {
+    -fx-fill: black;
+}
+
+.tree-trunk {
+    -fx-fill: rgb(104, 57, 36);
+    -fx-stroke: rgb(104, 57, 36);
+    -fx-stroke-width: 20;
+}
+
+.tree-branches {
+    -fx-fill: rgb(104, 57, 36);
+    -fx-stroke: rgb(104, 57, 36);
+    -fx-stroke-width: 10;
+}
