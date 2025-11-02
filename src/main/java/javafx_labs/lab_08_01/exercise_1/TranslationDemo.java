@@ -15,6 +15,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * @author Adam Johnston 2332003
+ * 
+ *         Simple program demonstrating translation controls.
+ */
 public class TranslationDemo extends Application {
     @Override
     public void start(Stage primaryStage) {
@@ -36,6 +41,7 @@ public class TranslationDemo extends Application {
         buttonPane.setCenter(rectPane);
         buttonPane.setPadding(new Insets(10, 10, 10, 10));
 
+        // Translate the rectangle.
         translateButton.addEventHandler(ActionEvent.ANY, _ -> {
             try {
                 rect.setTranslateX(Double.parseDouble(xField.getText()));
